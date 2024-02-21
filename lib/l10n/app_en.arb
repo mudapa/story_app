@@ -1,0 +1,15 @@
+{
+    "titleAppBar": "Story",
+    "descSignIn": "Share your interesting stories here !!!",
+    "btnTextSignIn": "Sign In",
+    "btnTextSignUp": "Sign Up",
+    "fieldTextName": "Name",
+    "fieldTextEmail": "Email",
+    "fieldTextPassword": "Password",
+    "fieldTextConfirmPassword": "Confirm Password",
+    "titleNewStory": "New Story",
+    "btnTextCamera": "Camera",
+    "btnTextGallery": "Gallery",
+    "fieldTextDesc": "Description",
+    "btnTextUpload": "Upload"
+}

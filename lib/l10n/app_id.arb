@@ -1,0 +1,15 @@
+{
+    "titleAppBar": "Story",
+    "descSignIn": "Bagikan Cerita Menarikmu di sini !!!",
+    "btnTextSignIn": "Masuk",
+    "btnTextSignUp": "Daftar",
+    "fieldTextName": "Nama",
+    "fieldTextEmail": "Email",
+    "fieldTextPassword": "Kata Sandi",
+    "fieldTextConfirmPassword": "Konfirmasi Kata Sandi",
+    "titleNewStory": "Tambahkan Cerita",
+    "btnTextCamera": "Kamera",
+    "btnTextGallery": "Galeri",
+    "fieldTextDesc": "Deskripsi",
+    "btnTextUpload": "Unggah"
+}

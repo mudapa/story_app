@@ -1,5 +1,5 @@
 name: story_app
-description: "Submission dicoding"
+description: "Submission dicoding - Muhammad Daniel Parhan"
 
 publish_to: 'none'
 
@@ -9,17 +9,41 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
+  animated_text_kit: ^4.2.2
+  animated_toggle_switch: ^0.8.1
+  bloc: ^8.1.3
+  build_runner: ^2.4.8
+  cached_network_image: ^3.3.1
+  camera: ^0.10.5+9
+  cupertino_icons: ^1.0.6
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
-
-  cupertino_icons: ^1.0.6
+  flutter_bloc: ^8.1.4
+  flutter_localizations:
+    sdk: flutter
+  flutter_screenutil: ^5.9.0
+  go_router: ^13.2.0
+  google_fonts: ^6.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.1
+  http: ^1.2.1
+  image: ^4.1.7
+  image_picker: ^1.0.7
+  lottie: ^3.1.0
+  provider: ^6.1.1
+  readmore: ^2.2.0
+  timeago: ^3.6.1
 
 dev_dependencies:
+  flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.0
-
 flutter:
-
+  generate: true
   uses-material-design: true
+  assets:
+    - assets/
+    - assets/flag/

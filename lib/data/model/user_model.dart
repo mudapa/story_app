@@ -25,9 +25,9 @@ class UserModel {
 }
 
 class LoginResult {
-  String? userId;
-  String? name;
-  String? token;
+  final String? userId;
+  final String? name;
+  final String? token;
 
   LoginResult({
     this.userId,

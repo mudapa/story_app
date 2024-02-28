@@ -12,7 +12,7 @@ final class DetailInitial extends DetailState {}
 final class DetailStoryLoading extends DetailState {}
 
 final class DetailStorySuccess extends DetailState {
-  final DetailStory detailStory;
+  final DetailStoryModel detailStory;
 
   const DetailStorySuccess(this.detailStory);
 

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../model/story_model.dart';
+import '../../model/upload_response.dart';
 import '../../services/story_service.dart';
 
 part 'upload_state.dart';

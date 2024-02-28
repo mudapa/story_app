@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../model/story_model.dart';
+import '../../model/list_story_model.dart';
 import '../../services/story_service.dart';
 
 part 'story_state.dart';

@@ -9,7 +9,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import '../../../data/cubit/localization/localization_cubit.dart';
 import '../../../data/cubit/story/detail/detail_cubit.dart';
 import '../../../data/cubit/theme/theme_cubit.dart';
-import '../../../data/model/story_model.dart';
+import '../../../data/model/story.dart';
 import '../../../shared/helper.dart';
 import '../../../shared/style.dart';
 import '../../widgets/custom_button.dart';

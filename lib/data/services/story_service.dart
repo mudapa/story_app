@@ -4,10 +4,12 @@ import 'package:http/http.dart' as http;
 
 import '../../shared/api_path.dart';
 import '../../shared/helper.dart';
-import '../model/story_model.dart';
+import '../model/detail_story_model.dart';
+import '../model/list_story_model.dart';
+import '../model/upload_response.dart';
 
 class StoryService {
-  Future<StoryModel> getAllStory() async {
+  Future<ListStoryModel> getAllStory() async {
     var headers = {'Authorization': 'Bearer ${settings.get('user')['token']}'};
     final response = await http.get(
       Uri.parse('${ApiPath.baseUrl}/stories'),
@@ -15,14 +17,14 @@ class StoryService {
     );
 
     if (response.statusCode == 200) {
-      return StoryModel.fromJson(jsonDecode(response.body));
+      return ListStoryModel.fromJson(jsonDecode(response.body));
     } else {
       var message = json.decode(response.body)['message'];
       throw Exception(message);
     }
   }
 
-  Future<DetailStory> getStoryById(String id) async {
+  Future<DetailStoryModel> getStoryById(String id) async {
     var headers = {'Authorization': 'Bearer ${settings.get('user')['token']}'};
     final response = await http.get(
       Uri.parse('${ApiPath.baseUrl}/stories/$id'),
@@ -30,7 +32,7 @@ class StoryService {
     );
 
     if (response.statusCode == 200) {
-      return DetailStory.fromJson(jsonDecode(response.body));
+      return DetailStoryModel.fromJson(jsonDecode(response.body));
     } else {
       var message = json.decode(response.body)['message'];
       throw Exception(message);

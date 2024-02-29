@@ -8,8 +8,8 @@ import '../../data/cubit/theme/theme_cubit.dart';
 import '../../shared/helper.dart';
 import '../../shared/style.dart';
 
-class Story extends StatelessWidget {
-  const Story({
+class HeaderStory extends StatelessWidget {
+  const HeaderStory({
     super.key,
   });
 

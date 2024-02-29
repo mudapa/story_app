@@ -31,7 +31,7 @@ class _CreateStoryPageState extends State<CreateStoryPage> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            context.pop();
+            context.goNamed('home');
           },
           icon: const Icon(
             Icons.chevron_left_rounded,
@@ -156,8 +156,15 @@ class _CreateStoryPageState extends State<CreateStoryPage> {
             listener: (context, state) {
               if (state is UploadSuccess) {
                 snackbar(context, text(context).successUpload, greenColor);
-                GoRouter.of(context).pop();
-                context.read<StoryCubit>().getAllStory();
+                context
+                    .read<StoryCubit>()
+                    .getAllStory(
+                      pageItems: 1,
+                      size: 3,
+                    )
+                    .then((value) {
+                  context.goNamed('home');
+                });
               }
 
               if (state is UploadFailed) {

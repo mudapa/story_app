@@ -5,11 +5,12 @@ import 'package:lottie/lottie.dart';
 
 import '../../../data/cubit/story/story_cubit.dart';
 import '../../../data/cubit/theme/theme_cubit.dart';
+import '../../../data/model/story.dart';
 import '../../../shared/helper.dart';
 import '../../../shared/style.dart';
 import '../../widgets/content_story.dart';
 import '../../widgets/custom_button.dart';
-import '../../widgets/story.dart';
+import '../../widgets/header_story.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,10 +20,42 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _scrollController = ScrollController();
+  List<Story> story = [];
+  int pageItems = 1;
+  int size = 3;
+
   @override
   void initState() {
-    context.read<StoryCubit>().getAllStory();
     super.initState();
+    story.clear();
+
+    _loadData();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _loadData() async {
+    context.read<StoryCubit>().getAllStory(
+          pageItems: 1,
+          size: 3,
+        );
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent) {
+      pageItems = pageItems + 1;
+      context.read<StoryCubit>().getAllStory(
+            pageItems: pageItems,
+            size: size,
+          );
+    }
   }
 
   @override
@@ -59,26 +92,23 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
+            story.clear();
+            pageItems = 1;
             await Future<void>.delayed(const Duration(seconds: 3)).then(
               (value) {
-                context.read<StoryCubit>().getAllStory();
+                context.read<StoryCubit>().getAllStory(
+                      pageItems: pageItems,
+                      size: size,
+                    );
               },
             );
           },
-          child: ListView(
+          child: Column(
             children: [
-              const Story(),
+              const HeaderStory(),
               gapH,
               BlocBuilder<StoryCubit, StoryState>(
                 builder: (context, state) {
-                  if (state is StoryLoading) {
-                    return Lottie.asset(
-                      'assets/loading.json',
-                      width: 100.w,
-                      height: 100.h,
-                    );
-                  }
-
                   if (state is StoryFailed) {
                     return Center(
                       child: Column(
@@ -92,7 +122,12 @@ class _HomePageState extends State<HomePage> {
                           CustomButton(
                             text: text(context).btnTextRefresh,
                             onTap: () {
-                              context.read<StoryCubit>().getAllStory();
+                              story.clear();
+                              pageItems = 1;
+                              context.read<StoryCubit>().getAllStory(
+                                    pageItems: pageItems,
+                                    size: size,
+                                  );
                             },
                             color: blueColor,
                             style: label.copyWith(
@@ -105,16 +140,44 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
 
-                  return Column(
-                    children: state is StorySuccess
-                        ? state.stories.listStory!.map(
-                            (story) {
-                              return ContentStory(
-                                story: story,
-                              );
-                            },
-                          ).toList()
-                        : [],
+                  if (pageItems == 1 && state is StoryLoading) {
+                    return Expanded(
+                      child: Center(
+                        child: Lottie.asset(
+                          'assets/loading.json',
+                          width: 80.w,
+                          height: 80.h,
+                        ),
+                      ),
+                    );
+                  }
+
+                  if (state is StorySuccess) {
+                    final data = state.listStory;
+                    story.addAll(data);
+                  }
+
+                  return Expanded(
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      itemCount:
+                          pageItems == 1 ? story.length : story.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == story.length && pageItems != 1) {
+                          return Center(
+                            child: Lottie.asset(
+                              'assets/loading.json',
+                              width: 80.w,
+                              height: 80.h,
+                            ),
+                          );
+                        }
+
+                        return ContentStory(
+                          story: story[index],
+                        );
+                      },
+                    ),
                   );
                 },
               ),

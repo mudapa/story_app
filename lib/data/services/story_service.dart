@@ -1,23 +1,29 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:story_app/data/model/list_story_model.dart';
 
 import '../../shared/api_path.dart';
 import '../../shared/helper.dart';
 import '../model/detail_story_model.dart';
-import '../model/list_story_model.dart';
+import '../model/story.dart';
 import '../model/upload_response.dart';
 
 class StoryService {
-  Future<ListStoryModel> getAllStory() async {
+  Future<List<Story>> getAllStory({
+    int? page,
+    int? size,
+    int? location,
+  }) async {
     var headers = {'Authorization': 'Bearer ${settings.get('user')['token']}'};
     final response = await http.get(
-      Uri.parse('${ApiPath.baseUrl}/stories'),
+      Uri.parse(
+          '${ApiPath.baseUrl}/stories?page=$page&size=$size&location=$location'),
       headers: headers,
     );
 
     if (response.statusCode == 200) {
-      return ListStoryModel.fromJson(jsonDecode(response.body));
+      return ListStoryModel.fromJson(jsonDecode(response.body)).listStory!;
     } else {
       var message = json.decode(response.body)['message'];
       throw Exception(message);

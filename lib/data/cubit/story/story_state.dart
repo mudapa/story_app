@@ -12,12 +12,12 @@ final class StoryInitial extends StoryState {}
 final class StoryLoading extends StoryState {}
 
 final class StorySuccess extends StoryState {
-  final ListStoryModel stories;
+  final List<Story> listStory;
 
-  const StorySuccess(this.stories);
+  const StorySuccess(this.listStory);
 
   @override
-  List<Object> get props => [stories];
+  List<Object> get props => [listStory];
 }
 
 final class StoryFailed extends StoryState {

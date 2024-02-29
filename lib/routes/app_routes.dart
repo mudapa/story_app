@@ -26,16 +26,16 @@ class AppRoutes {
         builder: (context, state) => const HomePage(),
         routes: [
           GoRoute(
-            path: 'create',
-            name: 'create',
-            builder: (context, state) => const CreateStoryPage(),
-          ),
-          GoRoute(
             path: 'detail',
             name: 'detail',
             builder: (context, state) => const DetailStoryPage(),
           ),
         ],
+      ),
+      GoRoute(
+        path: '/create',
+        name: 'create',
+        builder: (context, state) => const CreateStoryPage(),
       ),
     ],
     debugLogDiagnostics: true,

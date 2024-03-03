@@ -103,10 +103,15 @@ class ContentStory extends StatelessWidget {
             width: double.infinity,
             height: 200.h,
             child: CachedNetworkImage(
-              imageUrl: story.photoUrl!,
+              imageUrl: story.photoUrl ?? '',
               progressIndicatorBuilder: (context, url, progress) => Center(
                   child: CircularProgressIndicator(value: progress.progress)),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
+              errorWidget: (context, url, error) => Center(
+                child: Icon(
+                  Icons.error,
+                  color: redColor,
+                ),
+              ),
             ),
           ),
         ),

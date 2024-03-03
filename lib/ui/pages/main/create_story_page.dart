@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../data/cubit/camera/camera_cubit.dart';
 import '../../../data/cubit/theme/theme_cubit.dart';
 import '../../../data/cubit/upload/upload_cubit.dart';
+import '../../../flavor_config.dart';
 import '../../../shared/helper.dart';
 import '../../../shared/style.dart';
 import '../../widgets/custom_button.dart';
@@ -153,49 +154,50 @@ class _CreateStoryPageState extends State<CreateStoryPage> {
               ),
             ),
           ),
-          gapH,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16),
-                width: 200.w,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: greyColor,
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          FlavorConfig.instance.flavor == FlavorType.paid
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      text(context).labelLocation,
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      width: 200.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: greyColor,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            text(context).labelLocation,
+                          ),
+                          Text(_location != null
+                              ? '${_location!.latitude}, ${_location!.longitude}'
+                              : '-'),
+                        ],
+                      ),
                     ),
-                    Text(_location != null
-                        ? '${_location!.latitude}, ${_location!.longitude}'
-                        : '-'),
+                    IconButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                          EdgeInsets.zero,
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                          redColor,
+                        ),
+                      ),
+                      onPressed: () async {
+                        _setLocation(context);
+                      },
+                      icon: Icon(
+                        Icons.location_on,
+                        color: whiteColor,
+                      ),
+                    ),
                   ],
-                ),
-              ),
-              IconButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    EdgeInsets.zero,
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    redColor,
-                  ),
-                ),
-                onPressed: () async {
-                  _setLocation(context);
-                },
-                icon: Icon(
-                  Icons.location_on,
-                  color: whiteColor,
-                ),
-              ),
-            ],
-          ),
+                )
+              : const SizedBox(),
           gapH,
           BlocConsumer<UploadCubit, UploadState>(
             listener: (context, state) {

@@ -140,8 +140,26 @@ class ContentStory extends StatelessWidget {
           ),
           gapH,
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: story.lat != null && story.lon != null
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.end,
             children: [
+              if (story.lat != null && story.lon != null)
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      size: 16.sp,
+                    ),
+                    gapW,
+                    Text(
+                      '${story.lat!.toStringAsFixed(2)}, ${story.lon!.toStringAsFixed(2)}',
+                      style: label.copyWith(
+                        color: greyColor,
+                      ),
+                    ),
+                  ],
+                ),
               BlocBuilder<LocalizationCubit, LocalizationState>(
                 builder: (context, state) {
                   return Text(

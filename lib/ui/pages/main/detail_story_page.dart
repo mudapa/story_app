@@ -20,6 +20,39 @@ class DetailStoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: BlocBuilder<DetailCubit, DetailState>(
+        builder: (context, state) {
+          if (state is DetailStorySuccess) {
+            if (state.detailStory.story!.lat != null &&
+                state.detailStory.story!.lon != null) {
+              return FloatingActionButton.extended(
+                onPressed: () {
+                  context.goNamed('detail-map');
+                },
+                label: Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_rounded,
+                      color: whiteColor,
+                    ),
+                    gapW,
+                    Text(
+                      text(context).labelSeeLocation,
+                      style: label.copyWith(
+                        color: whiteColor,
+                      ),
+                    ),
+                  ],
+                ),
+                backgroundColor: greenColor,
+              );
+            } else {
+              return const SizedBox();
+            }
+          }
+          return const SizedBox();
+        },
+      ),
       body: SafeArea(
         child: BlocBuilder<DetailCubit, DetailState>(
           builder: (context, state) {

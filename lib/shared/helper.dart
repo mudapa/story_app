@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 
 import '../data/cubit/camera/camera_cubit.dart';
 import '../data/cubit/localization/localization_cubit.dart';
+import '../data/cubit/story/story_cubit.dart';
 import '../data/cubit/theme/theme_cubit.dart';
 import '../data/cubit/upload/upload_cubit.dart';
 import '../l10n/l10n.dart';
@@ -175,6 +177,13 @@ void snackbar(BuildContext context, String message, Color color) {
   );
 }
 
+void loadData(BuildContext context) async {
+  await context.read<StoryCubit>().getAllStory(
+        pageItems: 1,
+        size: 3,
+      );
+}
+
 onCamera(BuildContext context) async {
   final camera = context.read<CameraCubit>();
   final isAndroid = defaultTargetPlatform == TargetPlatform.android;
@@ -231,7 +240,7 @@ compressImage(List<int> bytes) {
   return newByte;
 }
 
-onUpload(BuildContext context, String description) async {
+onUpload(BuildContext context, String description, LatLng? location) async {
   final uploadStory = context.read<UploadCubit>();
   final camera = context.read<CameraCubit>();
   final imagePath = camera.state.imagePath;
@@ -244,9 +253,19 @@ onUpload(BuildContext context, String description) async {
   final fileName = imageFile.name;
   final bytes = await imageFile.readAsBytes();
   final newBytes = compressImage(bytes);
-  uploadStory.uploadStory(
-    description: description,
-    bytes: newBytes,
-    fileName: fileName,
-  );
+  if (location == null) {
+    uploadStory.uploadStory(
+      description: description,
+      bytes: newBytes,
+      fileName: fileName,
+    );
+  } else {
+    uploadStory.uploadStory(
+      description: description,
+      bytes: newBytes,
+      fileName: fileName,
+      lat: location.latitude,
+      lon: location.longitude,
+    );
+  }
 }

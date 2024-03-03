@@ -15,6 +15,8 @@ class UploadCubit extends Cubit<UploadState> {
     required String description,
     required List<int> bytes,
     required String fileName,
+    double? lat,
+    double? lon,
   }) async {
     emit(UploadLoading());
     try {
@@ -22,6 +24,8 @@ class UploadCubit extends Cubit<UploadState> {
         description: description,
         bytes: bytes,
         fileName: fileName,
+        lat: lat,
+        lon: lon,
       );
       emit(UploadSuccess(response));
     } on SocketException {

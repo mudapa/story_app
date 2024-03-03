@@ -29,5 +29,8 @@
     "successUpload": "Success Upload",
     "errorUpload": "Photos or descriptions cannot be empty!!!",
     "btnTextError": "Back to home",
-    "btnTextRefresh": "Refresh"
+    "btnTextRefresh": "Refresh",
+    "labelLocation": "Location",
+    "btnSetLocation": "Choose location",
+    "labelSeeLocation": "See Location"
 }

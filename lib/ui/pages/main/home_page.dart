@@ -29,22 +29,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     story.clear();
-
-    _loadData();
+    loadData(context);
     _scrollController.addListener(_scrollListener);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _loadData() async {
-    context.read<StoryCubit>().getAllStory(
-          pageItems: 1,
-          size: 3,
-        );
   }
 
   void _scrollListener() {
@@ -186,5 +172,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

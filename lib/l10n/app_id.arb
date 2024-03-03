@@ -29,5 +29,8 @@
     "successUpload": "Berhasil mengunggah",
     "errorUpload": "Foto atau deskripsi tidak boleh kosong!!!",
     "btnTextError": "Kembali ke beranda",
-    "btnTextRefresh": "Muat ulang"
+    "btnTextRefresh": "Muat ulang",
+    "labelLocation": "Lokasi",
+    "btnSetLocation": "Pilih lokasi",
+    "labelSeeLocation": "Lihat lokasi"
 }

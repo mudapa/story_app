@@ -13,12 +13,10 @@ class StoryService {
   Future<List<Story>> getAllStory({
     int? page,
     int? size,
-    int? location,
   }) async {
     var headers = {'Authorization': 'Bearer ${settings.get('user')['token']}'};
     final response = await http.get(
-      Uri.parse(
-          '${ApiPath.baseUrl}/stories?page=$page&size=$size&location=$location'),
+      Uri.parse('${ApiPath.baseUrl}/stories?page=$page&size=$size'),
       headers: headers,
     );
 
@@ -49,6 +47,8 @@ class StoryService {
     required String description,
     required List<int> bytes,
     required String fileName,
+    double? lat,
+    double? lon,
   }) async {
     var headers = {
       'Authorization': 'Bearer ${settings.get('user')['token']}',
@@ -68,6 +68,13 @@ class StoryService {
       ..headers.addAll(headers)
       ..fields['description'] = description
       ..files.add(multiPartFile);
+
+    if (lat != null && lon != null) {
+      request.fields.addAll({
+        'lat': lat.toString(),
+        'lon': lon.toString(),
+      });
+    }
 
     var response = await http.Response.fromStream(await request.send());
 

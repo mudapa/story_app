@@ -20,7 +20,6 @@ class StoryCubit extends Cubit<StoryState> {
       final result = await StoryService().getAllStory(
         page: pageItems,
         size: size,
-        location: 0,
       );
 
       emit(StorySuccess(result));

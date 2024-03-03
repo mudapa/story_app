@@ -75,48 +75,87 @@ class ContentStory extends StatelessWidget {
   }
 
   Widget _imageContent(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          height: 200.h,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: context.select((ThemeCubit cubit) =>
-                      cubit.state.brightness == Brightness.dark)
-                  ? [
-                      whiteColor.withOpacity(0.3),
-                      whiteColor.withOpacity(0.1),
-                    ]
-                  : [
-                      blackColor.withOpacity(0.3),
-                      blackColor.withOpacity(0.1),
-                    ],
-            ),
-          ),
-        ),
-        Hero(
-          tag: story.id!,
-          child: SizedBox(
+    String photoUrl = story.photoUrl!;
+    final checkEkstention = photoUrl.split('.').last;
+    if (checkEkstention == '') {
+      return Stack(
+        children: [
+          Container(
             width: double.infinity,
             height: 200.h,
-            child: CachedNetworkImage(
-              imageUrl: story.photoUrl ?? '',
-              progressIndicatorBuilder: (context, url, progress) => Center(
-                  child: CircularProgressIndicator(value: progress.progress)),
-              errorWidget: (context, url, error) => Center(
-                child: Icon(
-                  Icons.error,
-                  color: redColor,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: context.select((ThemeCubit cubit) =>
+                        cubit.state.brightness == Brightness.dark)
+                    ? [
+                        whiteColor.withOpacity(0.3),
+                        whiteColor.withOpacity(0.1),
+                      ]
+                    : [
+                        blackColor.withOpacity(0.3),
+                        blackColor.withOpacity(0.1),
+                      ],
+              ),
+            ),
+          ),
+          Hero(
+            tag: story.id!,
+            child: SizedBox(
+              width: double.infinity,
+              height: 200.h,
+              child: Image.asset(
+                'assets/placeholder_image.png',
+              ),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 200.h,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: context.select((ThemeCubit cubit) =>
+                        cubit.state.brightness == Brightness.dark)
+                    ? [
+                        whiteColor.withOpacity(0.3),
+                        whiteColor.withOpacity(0.1),
+                      ]
+                    : [
+                        blackColor.withOpacity(0.3),
+                        blackColor.withOpacity(0.1),
+                      ],
+              ),
+            ),
+          ),
+          Hero(
+            tag: story.id!,
+            child: SizedBox(
+              width: double.infinity,
+              height: 200.h,
+              child: CachedNetworkImage(
+                imageUrl: story.photoUrl!,
+                progressIndicatorBuilder: (context, url, progress) => Center(
+                    child: CircularProgressIndicator(value: progress.progress)),
+                errorWidget: (context, url, error) => Center(
+                  child: Icon(
+                    Icons.error,
+                    color: redColor,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    }
   }
 
   Widget _buildContent(BuildContext context) {

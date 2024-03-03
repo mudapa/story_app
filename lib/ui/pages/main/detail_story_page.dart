@@ -98,6 +98,9 @@ class DetailStoryPage extends StatelessWidget {
   }
 
   Widget _headerContent(BuildContext context, Story story) {
+    String photoUrl = story.photoUrl!;
+    final checkEkstention = photoUrl.split('.').last;
+
     return Stack(
       children: [
         Container(
@@ -127,11 +130,11 @@ class DetailStoryPage extends StatelessWidget {
             height: 200.h,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: story.photoUrl != null
-                    ? NetworkImage(
+                image: checkEkstention == '' || story.photoUrl == null
+                    ? const AssetImage('assets/placeholder_image.png')
+                    : NetworkImage(
                         story.photoUrl!,
-                      ) as ImageProvider
-                    : const AssetImage('assets/placeholder_image.png'),
+                      ) as ImageProvider,
                 fit: BoxFit.fitHeight,
               ),
             ),
